@@ -1,0 +1,29 @@
+<div class="banner" mb-5>
+  <div class="banner-content">
+    <%= image_tag "landing-map.png", class: "banner-image" %>
+    <h1>Track your shipments with OST</h1>
+    <%= link_to "Track now", shipments_path, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<div class="container mt-5 mb-5">
+  <div class="row g-3 justify-content-center">
+    <% @projects.each do |project| %>
+      <div class="col-12 col-md-6 col-xl-4">
+      <!-- This is here until we figure out how to add images to projects -->
+        <%= link_to shipments_path do %>
+          <% if ['Northern Iraq', 'Sierra Leone', 'Syria', 'Ukraine'].include? project.name %>
+          <div class="project-card" style="background-image: url('<%= image_path "#{project.name}.jpg" %>');">
+          <% else %>
+          <div class="project-card">
+          <% end %>
+            <div class="project-cards-container project-card-text-not-bootstrap">
+              <h4><b><%= project.name %></b></h4>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= render "/shared/footer"%>

@@ -1,0 +1,5 @@
+<% if current_user.donor? %>
+  <%= render "donor_index", shipments: @shipments %>
+<% else %>
+  <%= render "admin_index", shipments: @shipments %>
+<% end %>

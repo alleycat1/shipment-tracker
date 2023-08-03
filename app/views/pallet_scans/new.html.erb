@@ -1,0 +1,68 @@
+<div class="container">
+  <p>Click the button to send the pallet's coordinates.</p>
+
+  <p id="pallet" data-pallet="<%= @pallet.id %>"></p>
+
+
+  <button class="btn btn-primary" onclick="getLocation()">Send location</button>
+
+  <p id="geolocation"></p>
+</div>
+
+<script>
+let x = document.getElementById("geolocation");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude;
+  const id = document.getElementById("pallet");
+  const csrfToken = document.querySelector("[name='csrf-token']").content
+  fetch("/pallets/" + id.dataset.pallet + "/pallet_scans", {
+    method: "POST",
+    headers: {
+      "X-CSRF-Token": csrfToken, // Set the token
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({pallet_scan: { latitude: position.coords.latitude, longitude: position.coords.longitude, sticker_destroyed: false}})
+  })
+    .then(response => response.json())
+    .then((data) => {
+      if (data.shipment) {
+        x.classList.add("text-danger");
+        x.innerHTML = "Error submitting location";
+      } else {
+        location.href = "/success"
+      }
+    }).catch(error => console.log(error))
+}
+
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break;
+  }
+}
+
+// fetch request to the create of the scan (that we are going to do now)
+// see ajax lesson
+
+</script>

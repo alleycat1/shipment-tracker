@@ -1,0 +1,16 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "logo.png" %>
+    <% end %>
+    <div>
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-lg btn-outline-secondary" %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path, class: "btn btn-lg btn-outline-primary" %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

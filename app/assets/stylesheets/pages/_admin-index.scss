@@ -1,0 +1,159 @@
+.ship-title {
+  font-weight: 700;
+}
+
+.ship-donor {
+  font-size: 18px;
+}
+
+.ship-id-num {
+  font-size: 24px;
+}
+
+.ship-pallet-count {
+  font-size: 18px;
+}
+
+.shipment-cards {
+  margin: 20px;
+  font-size: 16px;
+}
+
+.card-product {
+  background-color: $white;
+}
+
+.btn-tabs-all {
+  color: $white;
+  padding: 8px 20px;
+  border-radius: 4px;
+  background: $yellow;
+  transition: background 0.3s ease;
+  font-size: 30px;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.active-color {
+  color: $white !important;
+  background-color: $yellow !important;
+}
+
+.btn-tabs {
+  color: $yellow;
+  padding: 8px 20px;
+  border-radius: 4px;
+  background: $white;
+  transition: background 0.3s ease;
+  border: 1px solid $yellow;
+  font-size: 12px;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.btn-tabs-all:hover, .btn-tabs:hover, {
+  color: $warning;
+}
+
+.btn-active {
+  color: $yellow;
+  padding: 4px 16px;
+  border-radius: 50px;
+  background: $light-yellow;
+  transition: background 0.3s ease;
+  font-size: 10px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.btn-in-preparation {
+  color: $dark-grey;
+  padding: 4px 16px;
+  border-radius: 50px;
+  background: $soft-grey;
+  transition: background 0.3s ease;
+  font-size: 10px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.btn-delivered {
+  color: $green;
+  padding: 4px 16px;
+  border-radius: 50px;
+  background: $light-green;
+  transition: background 0.3s ease;
+  font-size: 10px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.btn-problem {
+  color: $red;
+  padding: 4px 16px;
+  border-radius: 50px;
+  background: $light-red;
+  transition: background 0.3s ease;
+  font-size: 10px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.btn-worker {
+  padding: 4px 16px;
+  border-radius: 12px;
+  background: $white;
+  transition: background 0.3s ease;
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid $grey;
+  white-space: nowrap;
+}
+
+.btn-new-shipment {
+  color: $rich-black;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: $yellow;
+  transition: background 0.3s ease;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid $yellow;
+}
+
+.btn-new-shipment:hover {
+  color: $almost-black;
+}
+
+.margin-class {
+  margin-top: 45px;
+  margin-bottom: 20px;
+}
+
+
+// .fa-truck {
+//   font-size: 40px;
+// }
+
+.small-text-cards {
+  font-size: 14px;
+}
+
+.larger-text {
+  font-size: 18px;
+}

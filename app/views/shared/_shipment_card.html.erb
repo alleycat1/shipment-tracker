@@ -1,0 +1,33 @@
+<div class="gap-3">
+  <div class="bg-white border border-2 rounded-3 p-3">
+    <div class="d-flex justify-content-between mb-3">
+      <div>
+        <div class="text-secondary">Shipment Number</div>
+        <div class="text-dark fw-bold fs-4"><%= shipment.id %></div>
+      </div>
+      <div>
+        <% if shipment.status == "in_transit" %>
+          <div class="px-3 py-1 rounded-pill bg-primary text-primary" style="--bs-bg-opacity: .15;">Active</div>
+        <% elsif shipment.status == "in_preperation" %>
+          <div class="px-3 py-1 rounded-pill bg-secondary text-secondary" style="--bs-bg-opacity: .15;">Preperation</div>
+        <% elsif shipment.status == "delivered" %>
+          <div class="px-3 py-1 rounded-pill bg-success text-success" style="--bs-bg-opacity: .15;">Delivered</div>
+        <% elsif shipment.status == "problematic" %>
+          <div class="px-3 py-1 rounded-pill bg-danger text-danger" style="--bs-bg-opacity: .15;">Problematic</div>
+        <% end %>
+      </div>
+    </div>
+    <% shipment.scans.each_with_index do |scan, index| %>
+      <% unless index == 0  %>
+        <div class="row">
+          <div class="ms-3 col-4 border-end border-2 text-secondary" style="height: 30px;"></div>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-4 text-secondary text-end"><%= scan.date.strftime("%d.%m.%Y") %></div>
+        <div class="col-1">•</div>
+        <div class="col-7"><%= scan.location %></div>
+      </div>
+    <% end %>
+  </div>
+</div>

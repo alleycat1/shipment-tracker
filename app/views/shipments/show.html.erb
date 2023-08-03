@@ -1,0 +1,177 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-xl-6 my-3">
+      <div class="d-flex justify-content-between align-items-center gap-3 mb-3">
+        <h1 class="text-dark fw-bold">Shipment <%= @shipment.id %></h1>
+        <div class="px-3 py-1 border text-secondary rounded-pill">Managed by <%= @shipment.user.full_name %></div>
+      </div>
+      <div class="btn-group w-100">
+        <%= link_to shipments_path, class: "fw-bold btn btn-outline-primary" do %>
+            <i class="fa-solid fa-left-long"></i> Back
+        <% end %>
+        <%= link_to edit_shipment_path(@shipment), class: "fw-bold btn btn-outline-secondary" do %>
+            <i class="fa-solid fa-pen-to-square"></i> Edit
+        <% end %>
+        <%= link_to shipment_qr_path(@shipment), class: "fw-bold btn btn-outline-success link-qr-code", target: "_blank", rel: "noopener noreferrer" do %>
+          <i class="fa-solid fa-qrcode"></i> QR
+        <% end %>
+        <%= link_to shipment_path(@shipment), class: "fw-bold btn btn-outline-warning" do %>
+          <i class="fa-solid fa-rotate-right"></i> Refresh
+        <% end %>
+      </div>
+      <div class="bg-white border border-2 rounded-3 p-3 mt-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-secondary">Hello Fresh</div>
+            <div class="text-dark fw-bold fs-4"><%= @shipment.id %></div>
+          </div>
+          <div class="text-end">
+            <% if @shipment.percent_completed.nil? %>
+              <div class="px-3 py-1 rounded-pill bg-warning text-warning" style="--bs-bg-opacity: .15;">N/A</div>
+            <% else %>
+              <% if @shipment.percent_completed == 0 %>
+                <div class="px-3 py-1 rounded-pill bg-secondary text-secondary" style="--bs-bg-opacity: .15;">Preparation <%= @shipment.percent_completed %>%</div>
+              <% elsif @shipment.percent_completed == 100 %>
+                <div class="px-3 py-1 rounded-pill bg-success text-success" style="--bs-bg-opacity: .15;">Delivered <%= @shipment.percent_completed %>%</div>
+              <% else %>
+                <div class="px-3 py-1 rounded-pill bg-warning text-warning" style="--bs-bg-opacity: .15;">Active <%= @shipment.percent_completed %>%</div>
+              <% end %>
+            <% end %>
+            <div class="text-secondary mt-1"><%= @shipment.pallets.count %> pallets</div>
+          </div>
+        </div>
+        <% if @shipment.scans.count.positive? %>
+          <div class="row" title="<%= @shipment.scans.first.date.strftime("%F %T") %>">
+            <div class="col-3">Last Scan</div>
+            <div class="col-1">•</div>
+            <div class="col-6"><%= @shipment.scans.first.date.strftime("%a %e %b") %></div>
+            <div class="col-3">Location</div>
+            <div class="col-1">•</div>
+            <div class="col-6 text-truncate"><%= @shipment.scans.first.location %></div>
+          </div>
+        <% else %>
+          <h2 class="fw-bold text-secondary text-center">...no scans yet</h2>
+        <% end %>
+      </div>
+      <h2 class="text-dark fw-bold mt-5 mb-3">Transport route</h2>
+      <% unless @shipment.scans.count.positive? %>
+        <h2 class="fw-bold text-secondary text-center">...no scans yet</h2>
+      <% end %>
+      <div class="row">
+        <div class="col-3 text-secondary"><%= @shipment.expected_arrival_date.strftime("%d.%m.%Y") %></div>
+        <div class="col-2 text-center"><strong>End</strong></div>
+        <div class="col-7"><%= @shipment.destination_location %></div>
+      </div>
+      <% @shipment.scans.each_with_index do |scan, index| %>
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-2 text-secondary d-flex justify-content-center" style="height: 30px;">
+          <div class="vr"></div>
+        </div>
+      </div>
+        <div class="row" title="<%= scan.date.strftime("%F %T") %>">
+          <div class="col-3 text-secondary"><%= scan.date.strftime("%d.%m.%Y") %></div>
+          <div class="col-2 text-center">
+            <% if index.zero? %>
+              <i class="fa-solid fa-truck text-primary"></i>
+            <% else %>
+              <strong>•</strong>
+            <% end %>
+          </div>
+          <div class="col-7"><%= scan.location %></div>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col-2 text-secondary d-flex justify-content-center" style="height: 30px;">
+          <div class="vr"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 text-secondary"><%= @shipment.start_date.strftime("%d.%m.%Y") %></div>
+        <div class="col-2 text-center"><strong>Start</strong></div>
+        <div class="col-7"><%= @shipment.starting_location %></div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-5">
+        <h2 class="text-dark fw-bold"><%= @shipment.pallets.count %> Pallets</h2>
+        <div class="d-flex gap-3 align-items-center">
+          <div class="px-3 py-1 rounded-pill bg-secondary text-secondary fw-bold m-0" style="--bs-bg-opacity: .15;">Add Pallets</div>
+          <%= link_to "+", new_shipment_pallet_path(@shipment), class: "btn btn-primary" %>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-2 text-dark fs-8">Content</div>
+        <div class="col-2 text-dark fs-8">Last Scan</div>
+        <div class="col-2 text-dark fs-8">Location</div>
+        <div class="col-2 text-dark fs-8">Status</div>
+        <div class="col-2 text-dark fs-8 text-center">QR Code</div>
+      </div>
+      <% @shipment.pallets.each do |pallet| %>
+          <div class="row py-1 border border bg-white rounded-pill mt-2">
+            <div class="col-2 text-secondary fs-9">
+              <%= link_to edit_pallet_path(pallet), class: "text-decoration-none text-secondary" do %>
+                <%= pallet.content %>
+              <% end %>
+            </div>
+            <div class="col-2 text-secondary fs-9">
+              <% if pallet.pallet_scans.count.positive? %>
+                <%= pallet.pallet_scans.first.date.strftime("%d.%m.%Y") %>
+              <% elsif @shipment.scans.count.positive? %>
+                <%= @shipment.scans.first.date.strftime("%d.%m.%Y") %>
+              <% end %>
+            </div>
+            <div class="col-2 text-secondary fs-9 text-truncate">
+              <% if pallet.pallet_scans.count.positive? %>
+                <%= pallet.pallet_scans.first.location %>
+              <% elsif @shipment.scans.count.positive? %>
+                <%= @shipment.scans.first.location %>
+              <% end %>
+            </div>
+            <div class="col-2 text-secondary fs-9">
+              <% if pallet.is_complete %>
+                ✅
+              <% else %>
+                ❌
+              <% end %>
+            </div>
+            <div class="col-2 text-secondary fs-9 text-center <%= @shipment.scans.count.positive? && @shipment.scans.first.sticker_destroyed? ? "text-danger" : "text-success" %>">
+              <%= link_to pallet_qr_path(pallet), class: "text-decoration-none text-success fw-bold" do %>
+                <%# <%= @shipment.scans.count.positive? && @shipment.scans.first.sticker_destroyed? ? "Destroyed" : "Ok" %>
+                <i class="fa-solid fa-qrcode"></i> QR
+              <% end %>
+            </div>
+
+          </div>
+      <% end %>
+    </div>
+    <div class="col-12 col-xl-6 mt-3 position-sticky" style="top: 20px; height: fit-content;">
+      <div>
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Show Shipment</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Show Pallets</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <%# <h2 class="text-dark fw-bold">Track on map</h2> %>
+            <div class="rounded-3" style="height: 89vh;"
+              data-controller="mapbox-show"
+              data-mapbox-show-markers-value="<%= @markers.to_json %>"
+              data-mapbox-show-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+            </div>
+          </div>
+          <div class="tab-pane fade active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="rounded-3" style="height: 89vh;"
+              data-controller="mapbox-show-pallets"
+              data-mapbox-show-pallets-markers-value="<%= @markers_pallets.to_json %>"
+              data-mapbox-show-pallets-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

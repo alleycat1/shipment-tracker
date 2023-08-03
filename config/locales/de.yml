@@ -1,0 +1,5 @@
+de:
+  geo_request: "Klicke den unteren Button um deinen Standort zu übertragen. Wir sammeln keine personalisierten Daten. Dadurch bleiben sie komplett anonym."
+  share_location: "Standort teilen"
+  thank_you: "Vielen Dank!"
+  success_description: "Ihr Standort wurde erfolgreich übermittelt."

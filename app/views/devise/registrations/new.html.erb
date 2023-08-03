@@ -1,0 +1,33 @@
+<div class="row mt-0 justify-content-center">
+
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "login-form__container"}) do |f| %>
+    <%= f.error_notification %>
+    <h2 class="text-dark text-center" >Sign up</h2>
+
+      <%= f.input :first_name,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "given-name" }%>
+      <%= f.input :last_name,
+                  required: true,
+                  input_html: { autocomplete: "family-name" }%>
+      <%= f.input :email,
+                  required: true,
+                  input_html: { autocomplete: "email" }%>
+      <%= f.input :password,
+                  required: true,
+                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                  input_html: { autocomplete: "new-password" } %>
+      <%= f.input :password_confirmation,
+                  required: true,
+                  input_html: { autocomplete: "new-password" } %>
+
+
+      <div class="d-flex justify-content-center">
+      <%= f.button :submit, "Sign up", class: "btn btn-primary text-light text login-form__button" %>
+      </div>
+       <br>
+      <%= render "devise/shared/links" %>
+
+  <% end %>
+</div>

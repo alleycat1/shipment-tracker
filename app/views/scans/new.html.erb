@@ -1,0 +1,66 @@
+<div class="container">
+  <h1 class="text-dark fw-bold mt-4"><%= t 'shipment' %> <%= @shipment.id %></h1>
+  <p><%= t :geo_request %></p>
+  <p id="shipment" data-shipment="<%= @shipment.exid %>"></p>
+  <div class="alert alert-danger d-none" id="geolocation" role="alert"></div>
+  <button class="btn btn-lg btn-primary w-100" onclick="getLocation()"><%= t 'share_location' %></button>
+</div>
+<script>
+  const geoLocationMessage = document.getElementById("geolocation");
+
+  function setError(error) {
+    geoLocationMessage.innerHTML = error;
+    geoLocationMessage.classList.remove("d-none");
+  }
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      geoLocationMessage.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    geoLocationMessage.innterHTML = `Latitude: ${position.coords.latitude} Longitude: ${position.coords.longitude}`
+    const id = document.getElementById("shipment");
+    const csrfToken = document.querySelector("[name='csrf-token']").content
+    fetch("/shipments/" + id.dataset.shipment + "/scans", {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": csrfToken, // Set the token
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({scan: { latitude: position.coords.latitude, longitude: position.coords.longitude, sticker_destroyed: false}})
+    })
+      .then(response => response.json())
+      .then((data) => {
+        if (data.shipment) {
+          setError("Error submitting location");
+        } else {
+          location.href = "/success"
+        }
+      }).catch(error => console.log(error))
+  }
+
+  function showError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        setError("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        setError("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        setError("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        setError("An unknown error occurred.");
+        break;
+    }
+  }
+
+  // fetch request to the create of the scan (that we are going to do now)
+  // see ajax lesson
+</script>

@@ -1,0 +1,38 @@
+.project-card {
+  /* Add shadows to create the "project-card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 8px;
+  text-align: center;
+  height: 375px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+.project-card-image {
+  object-fit: fill;
+  object-position: center;
+  border-radius: 8px;
+}
+
+.project-card-text-not-bootstrap {
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: $aidpioneers;
+  z-index: 10;
+}
+
+/* On mouse-over, add a deeper shadow */
+.project-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.2);
+  transform: scale(1.03);
+  z-index: 5;
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 2px 16px;
+}

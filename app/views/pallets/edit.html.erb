@@ -1,0 +1,8 @@
+<div class="container">
+  <%= render "form", pallet: @pallet, shipment: @pallet.shipment %>
+  <hr>
+  <div class="btn-group">
+    <%= link_to  "Back to shipment", shipment_path(@pallet.shipment), class: "btn btn-outline-secondary" %>
+    <%= link_to  "Delete Pallet", pallet_path(@pallet), method: :delete, data: { confirm: "Are you sure you want to delete this pallet?" }, class: "btn btn-outline-danger" %>
+  </div>
+</div>

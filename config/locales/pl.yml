@@ -1,0 +1,5 @@
+pl:
+  geo_request: "Kliknij przycisk, aby wysłać swoje współrzędne. Nie zbieramy danych osobowych, wysyłanie Twojej lokalizacji jest anonimowe."
+  share_location: "Udostępnij lokalizację"
+  thank_you: "Dziękuję Ci!"
+  success_description: "Twoja lokalizacja została pomyślnie przesłana."

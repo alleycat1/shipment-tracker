@@ -1,0 +1,38 @@
+<div class="position-absolute top-0 left-0 sidenav-container">
+  <a class="btn btn-outline-secondary position-fixed z-index-1 sidenav-toggle" data-bs-toggle="collapse" href="#sidenav" role="button" aria-expanded="false" aria-controls="sidenav">
+    <i class="fa-solid fa-bars"></i>
+  </a>
+  <div class="collapse collapse-horizontal" id="sidenav">
+    <div class="sidenav">
+      <div>
+        <div class="user-info">
+          <% if user_signed_in? %>
+            <h3><%= current_user.first_name  %> <%= current_user.last_name  %></h3>
+            <p><%= current_user.email %></p>
+          <% end %>
+        </div>
+        <div class="projects">
+          <p class="bold">Projects</p>
+          <% Project.all.each do |project| %>
+            <% if current_page?(request.url) %>
+              <p class="active"><%= project.name %></p>
+            <% else %>
+              <p class="inactive"><%= project.name %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <% if user_signed_in? %>
+          <%= link_to destroy_user_session_path, method: :delete, class: "btn btn-secondary" do  %>
+            <%= image_tag "logout.png", class: "btn-img" %>Log out
+          <% end %>
+        <% else %>
+          <%= link_to new_user_session_path, class: "btn btn-primary" do  %>
+            <%= image_tag "logout.png", class: "btn-img" %>Log in
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

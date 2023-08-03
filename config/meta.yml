@@ -1,0 +1,5 @@
+meta_product_name: "Aidpioneers Shipment Tracker"
+meta_title: "Aidpioneers Shipment Tracker - Track your donations"
+meta_description: "Donate to Aidpioneers today and track your donations using our handy tool."
+meta_image: "cover.png" # should exist in `app/assets/images/`
+twitter_account: "@aidpioneers"   # required for Twitter Cards

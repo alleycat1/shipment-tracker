@@ -1,0 +1,37 @@
+{
+  "name": "AP Shipment Tracker",
+  "description": "A tool that tracks the locations and shipping details of humanitarian aid sent to Ukraine by Aid Pioneers.",
+  "repository": "https://github.com/Aid-Pioneers/shipment-tracker",
+  "logo": "https://small-sharp-tool.com/logo.svg",
+  "success_url": "/",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "standard-1x"
+    }
+  },
+  "image": "heroku/ruby",
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ],
+  "buildpacks": [
+    { "url": "heroku/ruby" }
+  ],
+  "environments": {
+    "test": {
+      "formation": {
+        "test": {
+          "quantity": 1,
+          "size": "standard-2x"
+        }
+      },
+      "env": { "POSTGRESQL_VERSION": "14" },
+      "addons": ["heroku-postgresql:in-dyno"]
+    }
+  }
+}

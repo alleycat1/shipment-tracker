@@ -1,0 +1,63 @@
+.sidenav {
+  height: 100vh;
+  width: 300px;
+  background-color: #ffffff;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  top: 0;
+  border-right: 2px solid #f1f1f1;
+}
+
+.sidenav-container {
+  z-index: 10;
+}
+
+.projects {
+  margin-top: 50px;
+}
+
+.sidenav p {
+  color: #9198a3;
+}
+
+.sidenav h3 {
+  color: #051224;
+}
+
+.bold {
+  font-weight: bold;
+  color: #051224 !important;
+}
+
+.sidenav a {
+  text-decoration: none;
+  display: block;
+}
+
+.active {
+  color: $aidpioneers;
+  cursor: pointer;
+}
+
+.inactive {
+  color: #9198a3;
+  cursor: pointer;
+}
+
+.btn-logout {
+  background-color: #9198a3;
+  width: 120px;
+}
+
+.btn-img {
+  margin-right: 10px;
+}
+
+.sidenav-toggle {
+  position: fixed;
+  left: 1em;
+  top: 1em;
+  z-index: 10;
+}

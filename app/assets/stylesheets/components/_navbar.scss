@@ -1,0 +1,24 @@
+.navbar-lewagon {
+  justify-content: space-between;
+  background: white;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.navbar-lewagon .navbar-brand img {
+  width: 80px;
+}
+
+.button {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0px 24px;
+  border: 1px solid $aidpioneers;
+  border-radius: 6px;
+  background: #ffffff;
+  color: $aidpioneers;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $aidpioneers;
+}

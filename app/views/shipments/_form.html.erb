@@ -1,0 +1,19 @@
+<%= simple_form_for(shipment) do |f| %>
+  <%= f.association :project, include_blank: false %>
+  <%= f.association :user, collection: User.aidpioneer, include_blank: false, label_method: :email %>
+  <%= f.input :start_date, as: :string, input_html: { class: "datepicker", autocomplete: "off" } %>
+  <%= f.input :expected_arrival_date, as: :string, input_html: { class: "datepicker", autocomplete: "off" } %>
+  <%= f.input :transport_type, as: :select, collection: Shipment.transport_types.keys.to_a, include_blank: false, label_method: :capitalize %>
+
+  <div class="d-flex">
+    <%= f.input :starting_location,
+                input_html: { data: { geocoder_target: "starting_location" }, class: "d-none" },
+                wrapper_html: { data: { controller: "geocoder", geocoder_api_key_value: ENV['MAPBOX_API_KEY'] } } %>
+  <%= f.input :destination_location,
+              input_html: { data: { destination_target: "destination_location" }, class: "d-none" },
+              wrapper_html: { data: { controller: "destination", destination_api_key_value: ENV['MAPBOX_API_KEY'] } } %>
+  </div>
+  <%= f.input :qr_code_type, as: :select, collection: Shipment.qr_code_types.keys.to_a, include_blank: false, label_method: :titleize  %>
+  <%= f.input :status, as: :select, collection: Shipment.statuses.keys.to_a, include_blank: false, label_method: :humanize %>
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>

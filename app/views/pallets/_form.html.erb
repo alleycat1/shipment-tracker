@@ -1,0 +1,15 @@
+<%= simple_form_for(@shipment ? [@shipment, pallet] : pallet )  do |f| %>
+  <%= f.input :content %>
+  <%= f.input :content_category, as: :select, collection: Pallet::CATEGORIES %>
+  <% if @shipment %>
+    <div class="mb-3">
+      <label class="form-label" for="count">Count</label>
+      <input class="form-control" value="1" type="number" id="count" name="count" min="1" max="40">
+    </div>
+  <% end %>
+  <%= f.association :donor, collection: User.donor, label_method: :full_name, include_blank: false %>
+  <% if @pallet.content %>
+    <%= f.input :is_complete, label: 'Mark as complete', as: :boolean %>
+  <% end %>
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>
